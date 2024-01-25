@@ -61,6 +61,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -115,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./producto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">producto interno</span></a>
+  <a href="./producto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -155,6 +156,125 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Supongamos que tenemos un sistema de ecuaciones lineales de la forma:</p>
+<p><span class="math display">\[ \begin{align*}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &amp;= b_1 \\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &amp;= b_2 \\
+\vdots \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &amp;= b_m \\
+\end{align*} \]</span></p>
+<p>notemos que podemos escribirlo de forma matricial como:</p>
+<p><span class="math display">\[ \begin{pmatrix}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\    
+a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+\vdots \\
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} \\
+\end{pmatrix} \begin{pmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n \\
+\end{pmatrix} = \begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m \\
+\end{pmatrix}, \]</span></p>
+<p><span class="math display">\[ \begin{pmatrix}
+A_{\cdot 1} &amp; A_{\cdot 2} &amp; \cdots &amp; A_{\cdot n} \\
+\end{pmatrix} \begin{pmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n \\
+\end{pmatrix} = \begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m \\
+\end{pmatrix}. \]</span></p>
+<p>La notación <span class="math inline">\(A_{\cdot j}\)</span> indica la columna <span class="math inline">\(j\)</span> de la matriz <span class="math inline">\(A\)</span>, o de forma más compacta como:</p>
+<p><span class="math display">\[ \sum _{j=1}^n A_{\cdot j}x_j = \begin{pmatrix}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m \\
+\end{pmatrix}, \]</span></p>
+<p>recuerde que <span class="math inline">\(x_j\)</span> es un escalar.</p>
+<p>Aquí nos podemos preguntar si existe una solución para este sistema de ecuaciones, y si existe, ¿es única?. Para analizar esto, observemos que el sistema tiene solución si y solo si el vector <span class="math inline">\(\vec{b}\)</span> es combinación lineal de las columnas de la matriz <span class="math inline">\(A\)</span>, en otras palabras pertenece al espacio columna de <span class="math inline">\(A\)</span>. En caso contrario el sistema no tiene solución. Ahora podemos preguntarnos si la solución es única, para ellos existen dos posibilidades</p>
+<ul>
+<li><p>Las columnas de <span class="math inline">\(A\)</span> son linealmente independientes, en este caso la solución es única.</p></li>
+<li><p>Las columnas de <span class="math inline">\(A\)</span> son linealmente dependientes y <span class="math inline">\(n&lt;m\)</span>, en este caso la solución no es única, esto quiere decir que <span class="math inline">\(r&lt;n\)</span>.</p></li>
+<li><p>Las columnas de <span class="math inline">\(A\)</span> son linealmente dependientes y <span class="math inline">\(m&lt;n\)</span>.</p></li>
+</ul>
+<p>La primera afirmación es una consecuencia de la definición de combinación lineal. En el segundo caso podemos ver que si las columnas de <span class="math inline">\(A\)</span>, son linealmente dependientes, entonces, sin perdida de generalidad, supondremos que las primeras <span class="math inline">\(r\)</span> columnas son linealmente independientes, por tanto las restantes <span class="math inline">\(n-r\)</span> columnas son combinación lineal de las primeras <span class="math inline">\(r\)</span> columnas. Además las primeras <span class="math inline">\(r\)</span> columnas son una base del espacio columna de <span class="math inline">\(A\)</span>, por tanto el vector <span class="math inline">\(\vec{b}\)</span> puede escribirse como combinación lineal de las primeras <span class="math inline">\(r\)</span> columnas, así:</p>
+<p><span class="math display">\[ \vec{b} = \sum_{j=1}^r \tilde{\alpha}_j A_{\cdot j}, \]</span> lo cual quiere decir que un vector solución del sistema es:</p>
+<p><span class="math display">\[ \vec{x}_p=\begin{pmatrix}
+\tilde{\alpha}_1 \\
+\tilde{\alpha}_2 \\
+\vdots \\
+\tilde{\alpha}_r \\
+0 \\
+\vdots \\
+0 \\
+\end{pmatrix}, \]</span></p>
+<p>donde los últimos <span class="math inline">\(m-r\)</span> elementos son cero. Ahora bien, queremos encontrar otro vector solución para ello estudiaremos la solución del sistema homogéneo asociado:</p>
+<p><span class="math display">\[ A\vec{x} = \vec{0}, \]</span></p>
+<p>recuerde que <span class="math inline">\(\vec{x}\in\mathbb{R}^n\)</span> y <span class="math inline">\(\vec{0}\in\mathbb{R}^m\)</span>. Este sistema tiene solución trivial. Sea <span class="math inline">\(\vec{x_h }=\vec{x_1}+\vec{x_2}\)</span>, donde</p>
+<p><span class="math display">\[ \vec{x}_1=\begin{pmatrix}
+\alpha_1 \\
+\alpha_2 \\
+\vdots \\
+\alpha_r \\
+0 \\
+\vdots \\
+0 \\
+\end{pmatrix}, \text{ y } \vec{x}_2=\begin{pmatrix}
+0 \\
+0 \\
+\vdots \\
+0 \\
+\beta_{r+1} \\
+\vdots \\
+\beta_m \\
+\end{pmatrix},\]</span></p>
+<p>calculando <span class="math inline">\(A(\vec{x}_1-\vec{x}_2)\)</span> se obtiene que:</p>
+<p><span class="math display">\[ \sum_{j=1}^r \alpha_j A_{\cdot j} - \sum_{j=r+1}^m \beta_j A_{\cdot j} = \vec{0}, \]</span></p>
+<p>luego para cualquier combinación de <span class="math inline">\(\beta_j\)</span> encontramos una combinación de <span class="math inline">\(\alpha_j\)</span> que la suma anterior sea cero, por tanto existen infinitas soluciones del sistema homogéneo asociado. Por tanto, la solución del sistema original es:</p>
+<p><span class="math display">\[ \vec{x} = \vec{x}_p + \vec{x}_h,\]</span> puesto <span class="math display">\[A(\vec{x}_p + \vec{x}_h) = A\vec{x}_p + A\vec{x}_h = \vec{b} + \vec{0} = \vec{b}.\]</span></p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>De la demostración anterior podemos podemos ver que <span class="math display">\[ dim(N(A))=n-r. \]</span></p>
+</div>
+</div>
+<div class="callout-caution callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Ejercicio
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>El tercer caso es similar al segundo, la justificación se deja como ejercicio.</p></li>
+<li><p>Muestre que el <span class="math inline">\(Rank(A^T)=Rank(A)\)</span>.</p></li>
+<li><p>Muestre que el <span class="math inline">\(dim((A^T))=m-r\)</span>.</p></li>
+</ul>
+</div>
+</div>
+</div>
 
 
 
@@ -300,7 +420,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./producto.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">producto interno</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

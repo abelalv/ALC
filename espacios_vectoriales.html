@@ -111,12 +111,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./solu_ecua.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">solu_ecua.html</span></a>
+  <a href="./solu_ecua.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Solución de sistema de ecuaciones lineales</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./producto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">producto interno</span></a>
+  <a href="./producto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -142,7 +142,6 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#subespacios-de-un-espacio-vectorial" id="toc-subespacios-de-un-espacio-vectorial" class="nav-link" data-scroll-target="#subespacios-de-un-espacio-vectorial"><span class="toc-section-number">3.1.1</span>  Subespacios de un espacio vectorial</a></li>
   </ul></li>
-  <li><a href="#solución-de-sistema-de-ecuaciones-lineales" id="toc-solución-de-sistema-de-ecuaciones-lineales" class="nav-link" data-scroll-target="#solución-de-sistema-de-ecuaciones-lineales"><span class="toc-section-number">4</span>  Solución de sistema de ecuaciones lineales</a></li>
   </ul>
 </nav>
     </div>
@@ -282,13 +281,54 @@ Definición
 </div>
 <div class="callout-body-container callout-body">
 <p>Sea <span class="math inline">\(A\)</span> una matriz de <span class="math inline">\(m\times n\)</span>, definimos como <strong>el espacio columna de <span class="math inline">\(A\)</span></strong></p>
-<p><span class="math display">\[span\{y\in\mathbb{R^m}|Ax=y\},\]</span></p>
-<p>note si tomamos <span class="math inline">\(x=e_i\)</span> tenemos donde <span class="math inline">\(Ae_i=A_i\)</span> son las columnas de <span class="math inline">\(A\)</span>. Además definimos como el <strong>espacio nulo de <span class="math inline">\(A\)</span></strong></p>
-<p><span class="math display">\[\{x\in\mathbb{R^n}|Ax=0\}.\]</span></p>
+<p><span class="math display">\[C(A)=span\{y\in\mathbb{R^m}|Ax=y\},\]</span></p>
+<p>y este se denota por <span class="math inline">\(C(A)\)</span>.</p>
+<p>Note si tomamos <span class="math inline">\(x=e_i\)</span> tenemos donde <span class="math inline">\(Ae_i=A_{\cdot i}\)</span> es <span class="math inline">\(i-esima\)</span> columna de <span class="math inline">\(A\)</span>. Además definimos como el <strong>espacio nulo de <span class="math inline">\(A\)</span></strong></p>
+<p><span class="math display">\[N(A)=span\{x\in\mathbb{R^n}|Ax=0\}.\]</span></p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definición
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se <span class="math inline">\(S=\{x_1,x_2,...,x_n\}\)</span> un conjunto de vectores linealmente independientes de <span class="math inline">\(V\)</span>, entonces se dice que <span class="math inline">\(S\)</span> es una base de <span class="math inline">\(V\)</span> si genera a <span class="math inline">\(V\)</span>.</p>
+</div>
+</div>
+<p>Si el conjunto <span class="math inline">\(S\)</span> es finito, entonces se dice que <span class="math inline">\(V\)</span> es de dimensión finita y se denota por <span class="math inline">\(dim(V)=n\)</span>. <strong>Existen espacios con dimensión infinita, pero no los estudiaremos en este curso.</strong></p>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definición
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El rank de una matriz <span class="math inline">\(A\)</span> es la dimensión del espacio columna de <span class="math inline">\(A\)</span> y se denota por <span class="math inline">\(rank(A)\)</span>.</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definición
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\(A\)</span> una matriz de <span class="math inline">\(m\times n\)</span>, con <span class="math inline">\(m&gt;n\)</span> <span class="math inline">\(rank(A)=n\)</span> diremos que <span class="math inline">\(A\)</span> es una matriz de rango completo.</p>
 </div>
 </div>
 <div class="callout-caution callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -297,7 +337,7 @@ Ejercicio
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li><p>Muestre que si una matriz <span class="math inline">\(A\)</span> todas sus columnas son linealmente independientes entonces el espacio nulo de <span class="math inline">\(A\)</span> es el vector <span class="math inline">\(\{0\}\)</span>.</p></li>
@@ -307,12 +347,9 @@ Ejercicio
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="solución-de-sistema-de-ecuaciones-lineales" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Solución de sistema de ecuaciones lineales</h1>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -457,7 +494,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./solu_ecua.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">solu_ecua.html</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Solución de sistema de ecuaciones lineales</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

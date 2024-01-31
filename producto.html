@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Algebra lineal Computacional - 5&nbsp; Producto interno en un espacio vectorial</title>
+<title>Algebra lineal Computacional - 6&nbsp; Producto interno en un espacio vectorial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./subespacios.html" rel="next">
-<link href="./solu_ecua.html" rel="prev">
+<link href="./normas.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -71,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -116,12 +116,17 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./producto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></a>
+  <a href="./normas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Norma de vectores</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./subespacios.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Subespacios principales de una matriz</span></a>
+  <a href="./producto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./subespacios.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Subespacios principales de una matriz</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -138,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ejemplos" id="toc-ejemplos" class="nav-link active" data-scroll-target="#ejemplos"><span class="toc-section-number">5.1</span>  Ejemplos</a></li>
+  <li><a href="#ejemplos" id="toc-ejemplos" class="nav-link active" data-scroll-target="#ejemplos"><span class="toc-section-number">6.1</span>  Ejemplos</a></li>
   </ul>
 </nav>
     </div>
@@ -147,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></h1>
 </div>
 
 
@@ -172,22 +177,93 @@ Definición
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Sea <span class="math inline">\(V\)</span> un espacio vectorial sobre un cuerpo <span class="math inline">\(K\)</span> y sea <span class="math inline">\(f:V\times V\to K\)</span> una función que cumple las siguientes propiedades:</p>
+<p>Sea <span class="math inline">\(V\)</span> un espacio vectorial sobre <span class="math inline">\(\mathbb{R}\)</span> y sea <span class="math inline">\(\langle , \rangle:V\times V\to K\)</span> una función que cumple las siguientes propiedades:</p>
 <ol type="1">
-<li><span class="math inline">\(f\)</span> es lineal en la primera entrada, es decir, para todo <span class="math inline">\(v,w\in V\)</span> y todo <span class="math inline">\(\lambda\in K\)</span> se tiene que <span class="math inline">\(f(\lambda v+w)=\lambda f(v)+f(w)\)</span>.</li>
-<li><span class="math inline">\(f\)</span> es simétrica, es decir, para todo <span class="math inline">\(v,w\in V\)</span> se tiene que <span class="math inline">\(f(v,w)=f(w,v)\)</span>.</li>
-<li><span class="math inline">\(f\)</span> es definida positiva, es decir, para todo <span class="math inline">\(v\in V\)</span> se tiene que <span class="math inline">\(f(v,v)\geq 0\)</span> y <span class="math inline">\(f(v,v)=0\)</span> si y solo si <span class="math inline">\(v=0\)</span>.</li>
+<li>Es simétrica, es decir, para todo <span class="math inline">\(v,w\in V\)</span> se tiene que <span class="math inline">\(\langle v,w \rangle=\langle w,v \rangle\)</span>.</li>
+<li>Es distributiva en la primera entrada, es decir, para todo <span class="math inline">\(v,w,z\in V\)</span> se tiene que <span class="math inline">\(\langle v+w,z \rangle=\langle v,z \rangle+\langle w,z \rangle\)</span>.</li>
+<li>Es homogénea en la primera entrada, es decir, para todo <span class="math inline">\(v,w\in V\)</span> y todo <span class="math inline">\(\lambda\in K\)</span> se tiene que <span class="math inline">\(\langle \lambda v,w \rangle=\lambda \langle v,w \rangle\)</span>.</li>
+<li>Positividad, <span class="math inline">\(\langle v,v \rangle\geq 0\)</span> y <span class="math inline">\(\langle v,v \rangle=0\)</span> si y solo si <span class="math inline">\(v=0\)</span>. En el caso complejo se tiene que <span class="math display">\[\langle v,w \rangle=\overline{\langle w,v \rangle},\]</span> donde <span class="math inline">\(\overline{z}\)</span> es el conjugado complejo de <span class="math inline">\(z\)</span>.</li>
 </ol>
-<p>Entonces <span class="math inline">\(f\)</span> se llama un <strong>producto interno</strong> en <span class="math inline">\(V\)</span>.</p>
 </div>
 </div>
-<section id="ejemplos" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="ejemplos"><span class="header-section-number">5.1</span> Ejemplos</h2>
+<section id="ejemplos" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="ejemplos"><span class="header-section-number">6.1</span> Ejemplos</h2>
 <ol type="1">
 <li><p>El producto punto en <span class="math inline">\(\mathbb{R}^n\)</span> es un producto interno.</p></li>
 <li><p>Sea <span class="math inline">\(A\)</span> una matriz simétrica definida positiva en <span class="math inline">\(\mathbb{R}^n\)</span> define un producto interno.</p></li>
 <li><p>Sea <span class="math inline">\(C^n\)</span> el espacio de todas las funciones continuas en el intervalo <span class="math inline">\([a,b]\)</span>. Entonces <span class="math inline">\(f,g\in C^n\)</span> se define el producto interno como <span class="math display">\[\int_a^b f(x)g(x)dx.\]</span></p></li>
 </ol>
+<div class="callout-important callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En un espacio vectorial con producto interno <span class="math inline">\(V\)</span>, todo producto interno satisfacen la desigualdad de Cauchy-Schwarz, es decir, para todo <span class="math inline">\(v,w\in V\)</span> se tiene que <span class="math display">\[|\langle v,w \rangle|^2\leq \langle v,v \rangle\langle w,w \rangle.\]</span></p>
+</div>
+</div>
+<div class="callout-caution callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Demostración
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\(v,w\in V\)</span> y <span class="math inline">\(\lambda\in \mathbb{R}\)</span>, entonces, si <span class="math inline">\(w=0\)</span> o <span class="math inline">\(v=0\)</span> se tiene que la desigualdad se cumple trivialmente. Supongamos que <span class="math inline">\(v\)</span> y <span class="math inline">\(w\)</span> ambos no son cero. Sea <span class="math inline">\(z=av+bw\)</span> con <span class="math inline">\(a,b\in \mathbb{R}\)</span>, entonces</p>
+<p><span class="math display">\[0\leq \langle z,z \rangle=\langle av+bw,av+bw \rangle=a^2\langle v,v \rangle+ab\langle v,w \rangle+ba\langle w,v \rangle+b^2\langle w,w \rangle,\]</span> tomando <span class="math inline">\(a=\langle w,w \rangle\)</span> y <span class="math inline">\(b=-\langle v,w \rangle,\)</span> se tiene que <span class="math display">\[0\leq \langle w,w \rangle^2\langle v,v \rangle-2\langle v,w \rangle\langle w,w \rangle\langle v,w \rangle+\langle v,w \rangle^2\langle w,w \rangle=\langle w,w \rangle\langle v,v \rangle-\langle v,w \rangle^2,\]</span> de donde se sigue que <span class="math display">\[\langle v,w \rangle^2\leq \langle v,v \rangle\langle w,w \rangle.\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Definición
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Norma inducida por un producto interno</strong> en un espacio vectorial <span class="math inline">\(V\)</span> con producto interno la función <span class="math inline">\(||\cdot||:V\to \mathbb{R}\)</span> definida por</p>
+<p><span class="math display">\[||v||=\sqrt{\langle v,v \rangle},\]</span> se llama norma inducida por el producto interno.</p>
+</div>
+</div>
+<div class="callout-important callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\(V\)</span> un espacio vectorial con producto interno, entonces la norma inducida por el producto interno satisface las siguientes propiedades: + <span class="math inline">\(||v||\geq 0\)</span> y <span class="math inline">\(||v||=0\)</span> si y solo si <span class="math inline">\(v=0\)</span>. + <span class="math inline">\(||\lambda v||=|\lambda|\,||v||\)</span> para todo <span class="math inline">\(\lambda\in \mathbb{R}\)</span>. + <span class="math inline">\(||v+w||\leq ||v||+||w||\)</span> para todo <span class="math inline">\(v,w\in V\)</span>.</p>
+</div>
+</div>
+<p>Regularmente un espacio vectorial con producto interno se llama <strong>espacio prehilbertiano</strong>. Este tipo de espacios son muy importantes en el estudio de la física y la ingeniería. En este tipo de espacios podemos definir la noción de ortogonalidad, la cual consiste en que dos vectores son ortogonales si su producto interno es cero. Además, podemos definir si un conjunto de vectores es ortogonal si entre ellos son ortogonales dos a dos. Finalmente, podemos definir si un conjunto de vectores es ortonormal si son ortogonales y tienen norma uno.</p>
+<div class="callout-important callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\(W\)</span> un subconjunto finito de vectores ortogonales de un espacio vectorial con producto interno <span class="math inline">\(V\)</span>, entonces los elementos de <span class="math inline">\(W\)</span> son linealmente independientes.</p>
+</div>
+</div>
 
 
 </section>
@@ -328,13 +404,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./solu_ecua.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Solución de sistema de ecuaciones lineales</span></span>
+      <a href="./normas.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Norma de vectores</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./subespacios.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Subespacios principales de una matriz</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Subespacios principales de una matriz</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -138,5 +138,33 @@
     "title": "6  K-mean",
     "section": "",
     "text": "K-mean es un algoritmo de aprendizaje no supervisado que agrupa los datos en K grupos distintos. El número de grupos K es un parámetro que se debe especificar por el usuario. El algoritmo funciona iterativamente para asignar cada dato a uno de los K grupos basado en las características que se proporcionan. Los datos se agrupan en función de la similitud de sus características.\nPara realizar esta labor, el algoritmo K-mean utiliza la distancia euclidiana para asignar cada dato a un grupo, con el objetivo de que la suma de las distancias al cuadrado dentro de cada grupo sea mínima."
+  },
+  {
+    "objectID": "regresion.html",
+    "href": "regresion.html",
+    "title": "11  Regresión multivariada",
+    "section": "",
+    "text": "12 Ejemplo 3\nLinealización para encontrar una relación entra la altura y el peso usando la lew de potencias\n\\[y=c_1e^{c_2t}\\] peso versus altura\nEl modelo de la ecuación \\[y=c_1te^{c_2t}\\] se puede utilizar para ajustar los datos de la concentración de un medicamento en la sangre de un paciente.\nModelos La temperatura en Washington, D.C., desde enero 1 de 2001 es listada en la siguiente tabla.\nSuponemos que el modelo se comporta de la forma\n\\[y=c_1+c_2\\cos(2\\pi t)+c_3\\sin(2\\pi t)\\] use minímos cuadrados para encontrar los parametros \\(c_i\\)"
+  },
+  {
+    "objectID": "regresion.html#ejemplo",
+    "href": "regresion.html#ejemplo",
+    "title": "11  Regresión multivariada",
+    "section": "11.1 Ejemplo",
+    "text": "11.1 Ejemplo\nUn estudio quiere generar un modelo que permita predecir la esperanza de vida media de los habitantes de una ciudad en función de diferentes variables. Se dispone de información sobre la esperanza de vida media de los habitantes de 50 ciudades, junto con información sociodemográfica de cada una de ellas. En concreto, se conoce: el número de habitantes, nivel de analfabetismo, ingresos, asesinatos, cantidad de universitarios, heladas, área y densidad poblacional.\n\nimport pandas as pd\nurl = (\n    'https://raw.githubusercontent.com/JoaquinAmatRodrigo/'\n    'Estadistica-machine-learning-python/master/data/state_x77.csv'\n)\ndatos = pd.read_csv(url, sep=',')\ndisplay(datos.info())\ndatos.head(3)\n\n<class 'pandas.core.frame.DataFrame'>\nRangeIndex: 50 entries, 0 to 49\nData columns (total 9 columns):\n #   Column          Non-Null Count  Dtype  \n---  ------          --------------  -----  \n 0   habitantes      50 non-null     int64  \n 1   ingresos        50 non-null     int64  \n 2   analfabetismo   50 non-null     float64\n 3   esp_vida        50 non-null     float64\n 4   asesinatos      50 non-null     float64\n 5   universitarios  50 non-null     float64\n 6   heladas         50 non-null     int64  \n 7   area            50 non-null     int64  \n 8   densidad_pobl   50 non-null     float64\ndtypes: float64(5), int64(4)\nmemory usage: 3.6 KB\n\n\nNone\n\n\n\n\n\n\n  \n    \n      \n      habitantes\n      ingresos\n      analfabetismo\n      esp_vida\n      asesinatos\n      universitarios\n      heladas\n      area\n      densidad_pobl\n    \n  \n  \n    \n      0\n      3615\n      3624\n      2.1\n      69.05\n      15.1\n      41.3\n      20\n      50708\n      71.290526\n    \n    \n      1\n      365\n      6315\n      1.5\n      69.31\n      11.3\n      66.7\n      152\n      566432\n      0.644384\n    \n    \n      2\n      2212\n      4530\n      1.8\n      70.55\n      7.8\n      58.1\n      15\n      113417\n      19.503249\n    \n  \n\n\n\n\n\n\n\n\n\n\nEjercicios\n\n\n\n\n\nRespondan las siguientes preguntas:\n\n¿Podríamos encontrar una relación entre independencia lineal de dos variables y su correlación?\nHaga la regresión lineal con habitantes, asesinatos y densidad poblacional como variables explicativas. ¿Que puede decir de los valores de \\(\\beta\\)?\nEncuentre el valor del error cuadrático medio."
+  },
+  {
+    "objectID": "regresion.html#linealización-de-modelos-no-lineales",
+    "href": "regresion.html#linealización-de-modelos-no-lineales",
+    "title": "11  Regresión multivariada",
+    "section": "11.2 Linealización de modelos no lineales",
+    "text": "11.2 Linealización de modelos no lineales\nEn ocasiones, los modelos no siguen una relación lineal entre las variables explicativas y la variable de respuesta. En estos casos, se puede linealizar el modelo, es decir, transformar el modelo no lineal en uno lineal. Por ejemplo, si se tiene un modelo de la forma: El crecimiento de una población de bacterias sigue una ley exponencial, es decir, el número de bacterias en el tiempo \\(t\\) es de la forma:\n\\[N(t) = N_0 e^{rt},\\]\ndonde \\(N_0\\) es el número inicial de bacterias, \\(r\\) es la tasa de crecimiento y \\(t\\) es el tiempo. Si tomamos logaritmos en ambos lados de la ecuación, obtenemos:\n\\[\\log(N(t)) = \\log(N_0) + rt,\\]\nNote de esta forma podemos lienalizar el modelo."
+  },
+  {
+    "objectID": "regresion.html#ejemplo-2",
+    "href": "regresion.html#ejemplo-2",
+    "title": "11  Regresión multivariada",
+    "section": "11.3 Ejemplo 2",
+    "text": "11.3 Ejemplo 2\nLa ecuación que mas aproxima el comportamiento de la venta de carros es \\[y=c_1e^{c_2t}\\] Podemos lienalizar este modelo para que usando mínimos cuadrados encontremos los parametros \\(c_1\\) y \\(c_2\\) que mejor ajustan el modelo a los datos\n\nimport xml.etree.ElementTree as ET\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n\ndf = pd.read_csv('datos/cpu.csv')\nprint(df.head())\nplt.plot(df['transistors'],'ro')\n\n    CPU  year  transistors\n0  4004  1971         2250\n1  8008  1972         2500\n2  8080  1974         5000\n3  8086  1978        29000\n4   286  1982       120000"
   }
 ]

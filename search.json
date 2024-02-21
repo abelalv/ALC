@@ -144,7 +144,7 @@
     "href": "regresion.html",
     "title": "11  Regresión multivariada",
     "section": "",
-    "text": "12 Ejemplo 3\nLinealización para encontrar una relación entra la altura y el peso usando la lew de potencias\n\\[y=c_1e^{c_2t}\\] peso versus altura\nEl modelo de la ecuación \\[y=c_1te^{c_2t}\\] se puede utilizar para ajustar los datos de la concentración de un medicamento en la sangre de un paciente.\nModelos La temperatura en Washington, D.C., desde enero 1 de 2001 es listada en la siguiente tabla.\nSuponemos que el modelo se comporta de la forma\n\\[y=c_1+c_2\\cos(2\\pi t)+c_3\\sin(2\\pi t)\\] use minímos cuadrados para encontrar los parametros \\(c_i\\)"
+    "text": "12 Ejemplo 3\nLinealización para encontrar una relación entra la altura y el peso usando la lew de potencias\n\\[y=c_1e^{c_2t}\\] peso versus altura\nEl modelo de la ecuación \\[y=c_1te^{c_2t}\\] se puede utilizar para ajustar los datos de la concentración de un medicamento en la sangre de un paciente.\nModelos La temperatura en Washington, D.C., desde enero 1 de 2001 es listada en la siguiente tabla.\nSuponemos que el modelo se comporta de la forma\n\\[y=c_1+c_2\\cos(2\\pi t)+c_3\\sin(2\\pi t)\\] use mínimos cuadrados para encontrar los parámetros \\(c_i\\)\ndatos disponibles es datos"
   },
   {
     "objectID": "regresion.html#ejemplo",

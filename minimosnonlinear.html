@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Algebra lineal Computacional - 12&nbsp; Newton -Raphson Para sistemas</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./regresion.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Newton -Raphson Para sistemas</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Algebra lineal Computacional</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prefacio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./espacios_vectoriales.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Espacios vectoriales</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./solu_ecua.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Solución de sistema de ecuaciones lineales</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./normas.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Norma de vectores</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./kmean.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">K-mean</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./producto.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Producto interno en un espacio vectorial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./subespacios.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Subespacios principales de una matriz</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gramsmith.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Factorización QR</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./minimoscuadrados.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Mínimos cuadrados</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./regresion.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Regresión multivariada</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./minimosnonlinear.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Newton -Raphson Para sistemas</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#algortimo" id="toc-algortimo" class="nav-link active" data-scroll-target="#algortimo"><span class="toc-section-number">12.1</span>  Algortimo</a></li>
+  <li><a href="#método-de-gradiente-descendente" id="toc-método-de-gradiente-descendente" class="nav-link" data-scroll-target="#método-de-gradiente-descendente"><span class="toc-section-number">12.2</span>  Método de Gradiente descendente</a></li>
+  <li><a href="#algoritmo" id="toc-algoritmo" class="nav-link" data-scroll-target="#algoritmo"><span class="toc-section-number">12.3</span>  Algoritmo</a></li>
+  <li><a href="#método-de-newton-para-minimización" id="toc-método-de-newton-para-minimización" class="nav-link" data-scroll-target="#método-de-newton-para-minimización"><span class="toc-section-number">12.4</span>  Método de Newton para minimización</a></li>
+  <li><a href="#gauss-newton-método-para-mínimos-cuadrados-no-lineales" id="toc-gauss-newton-método-para-mínimos-cuadrados-no-lineales" class="nav-link" data-scroll-target="#gauss-newton-método-para-mínimos-cuadrados-no-lineales"><span class="toc-section-number">12.5</span>  Gauss-Newton Método para mínimos cuadrados no lineales</a></li>
+  <li><a href="#método-de-levenberg-marquardt" id="toc-método-de-levenberg-marquardt" class="nav-link" data-scroll-target="#método-de-levenberg-marquardt"><span class="toc-section-number">12.6</span>  Método de Levenberg-Marquardt</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Newton -Raphson Para sistemas</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>El método de Newton raphson se puede generalizar para sistemas de ecuaciones no lineales. La idea es que en lugar de resolver una ecuación no lineal, se resuelva un sistema de ecuaciones no lineales. Para ellos suponemos que tenemos un sistema de ecuaciones no lineales de la forma:</p>
+<p><span class="math display">\[
+\begin{align*}
+f_1(x_1, x_2, \ldots, x_n) &amp;= 0 \\
+f_2(x_1, x_2, \ldots, x_n) &amp;= 0 \\
+\vdots \\
+f_n(x_1, x_2, \ldots, x_n) &amp;= 0 \\
+\end{align*}
+\]</span></p>
+<p>Note que el sistema se puede escribir de la forma <span class="math inline">\(F(x) = 0\)</span>, donde <span class="math inline">\(F(x)=[f_1,...f_n]^T\)</span> es un vector columna con las funciones <span class="math inline">\(f_i(x_1, x_2, \ldots, x_n)\)</span> y <span class="math inline">\(x\)</span> es un vector columna con las variables <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span>. Al aplicar la serie de Taylor a <span class="math inline">\(F(x)\)</span> obtenemos:</p>
+<p><span class="math display">\[F(x) = F(x_0) + D F(x_0)(x - x_0) + O(||x - x_0||^2)\]</span> note que <span class="math inline">\(DF(x_0)\)</span> es la matriz jacobiana de <span class="math inline">\(F(x)\)</span> evaluada en <span class="math inline">\(x_0\)</span>.</p>
+<p><span class="math display">\[DF(x_0) = \begin{bmatrix}
+\nabla f_1(x_0)^T \\
+\nabla f_2(x_0)^T \\
+\vdots \\
+\nabla f_n(x_0)^T \\
+\end{bmatrix},\]</span></p>
+<p>recuerde que el vector <span class="math inline">\(\nabla f_i(x_0)\)</span> es el gradiente de la función <span class="math inline">\(f_i(x)\)</span> evaluada en <span class="math inline">\(x_0\)</span>. <span class="math display">\[\nabla f_i(x_0) = \Big[\frac{\partial f_i}{\partial x_1}(x_0), \frac{\partial f_i}{\partial x_2}(x_0), \ldots, \frac{\partial f_i}{\partial x_n}(x_0)\Big]^T\]</span></p>
+<p>Si <span class="math inline">\(x\)</span> es una solución del sistema, entonces <span class="math inline">\(F(x) = 0\)</span>, de esta forma tenemos un sistema de ecuaciones lineales:</p>
+<p><span class="math display">\[DF(x_0)(x - x_0) = -F(x_0)\]</span> al resolver este sistema de ecuaciones lineales obtenemos una aproximación a la solución del sistema de ecuaciones no lineales. Usando este proceso iterativamente obtenemos el método de Newton para sistemas de ecuaciones no lineales.</p>
+<section id="algortimo" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="algortimo"><span class="header-section-number">12.1</span> Algortimo</h2>
+<p>El algoritmo para el método de Newton para sistemas de ecuaciones no lineales es el siguiente: Imput : <span class="math inline">\(F(x)\)</span>, <span class="math inline">\(x_0\)</span>, <span class="math inline">\(Tolerancia\)</span>, <span class="math inline">\(N_{max}\)</span> Output: <span class="math inline">\(x\)</span> o un mensaje de error</p>
+<ol type="1">
+<li><span class="math inline">\(k = 0\)</span></li>
+<li>Mientras <span class="math inline">\(k &lt; N_{max}\)</span> hacer:
+<ol type="1">
+<li>Calcular <span class="math inline">\(F(x_k)\)</span></li>
+<li>Si <span class="math inline">\(||F(x_k)|| &lt; Tolerancia\)</span> entonces
+<ol type="1">
+<li>Retornar <span class="math inline">\(x_k\)</span></li>
+</ol></li>
+<li>Calcular la matriz jacobiana <span class="math inline">\(DF(x_k)\)</span>
+<ol type="1">
+<li>Preguntar si la matriz jacobiana es singular
+<ol type="1">
+<li>Si es singular entonces
+<ol type="1">
+<li>Retornar un mensaje de error</li>
+</ol></li>
+</ol></li>
+</ol></li>
+<li>Resolver el sistema de ecuaciones lineales <span class="math inline">\(D F(x_k)(x - x_k) = -F(x_k)\)</span></li>
+<li><span class="math inline">\(x_{k+1} = x_k + x\)</span></li>
+<li><span class="math inline">\(k = k + 1\)</span></li>
+</ol></li>
+<li>Retornar un mensaje de error</li>
+</ol>
+<p>Existen otros métodos para resolver sistemas de ecuaciones no lineales, sin embargo el método de Newton es el más utilizado, aunque necesita el cálculo de la derivada. Un método alternativo para encontrar la solución de un sistema en varias variables es el método de Broyden. El método de Broyden es un método iterativo que no necesita el cálculo de la derivada. el cual se puede considerar como una evolución del método de la secante, y esta determinado por la siguiente fórmula:</p>
+<ol type="1">
+<li>encontrar una buena aproximación de la matriz jacobiana <span class="math inline">\(D_{n-1} F(x_0)\)</span></li>
+<li>resolver el sistema de ecuaciones lineales <span class="math inline">\(D_n=D_{n-1}+\frac{\Delta F_n-D_{n-1}\Delta x_n}{||\Delta x_n||^2}\Delta x^T_n\)</span></li>
+<li>Continuar según el método de Newton</li>
+</ol>
+<p>donde <span class="math inline">\(\Delta F_n=F(x_n)-F(x_{n-1})\)</span> y <span class="math inline">\(\Delta x_n=x_n-x_{n-1}\)</span></p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> broyden_method(F, x0, max_iterations, tolerance):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x0</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    J <span class="op">=</span> np.eye(<span class="bu">len</span>(x0))  <span class="co"># Initial approximation of the Jacobian matrix</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    Fx <span class="op">=</span> F(x)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(max_iterations):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        delta_x <span class="op">=</span> np.linalg.solve(J, <span class="op">-</span>Fx)  <span class="co"># Solve the linear system J * delta_x = -F(x)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        x_new <span class="op">=</span> x <span class="op">+</span> delta_x</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        Fx_new <span class="op">=</span> F(x_new)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        delta_F <span class="op">=</span> Fx_new <span class="op">-</span> Fx</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.linalg.norm(delta_F) <span class="op">&lt;</span> tolerance:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> x_new</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        J <span class="op">+=</span> np.outer((delta_F <span class="op">-</span> J <span class="op">@</span> delta_x), delta_x) <span class="op">/</span> np.linalg.norm(delta_x)<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x_new</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        Fx <span class="op">=</span> Fx_new</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"Broyden method did not converge within the specified number of iterations."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="método-de-gradiente-descendente" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="método-de-gradiente-descendente"><span class="header-section-number">12.2</span> Método de Gradiente descendente</h2>
+<p>El método de gradiente descendiente es un método usado para encontrar máximos y mínimos de funciones. La idea es que si tenemos una función <span class="math inline">\(f(x)\)</span>, entonces el gradiente de <span class="math inline">\(f(x)\)</span> nos da la dirección en la que la función crece más rápido. Si queremos encontrar el mínimo de la función, entonces debemos ir en la dirección opuesta al gradiente. De esta forma el método de gradiente descendente consiste en ir en la dirección opuesta al gradiente de la función. Si la función es convexa, entonces el método de gradiente descendente converge a un mínimo global. Si la función no es convexa, entonces el método de gradiente descendente converge a un mínimo local.</p>
+<p>Para poder adoptar este método vamos a explicar en que consiste el método de gradiente descendente. Supongamos que tenemos una función <span class="math inline">\(f(x)\)</span>, y queremos encontrar el mínimo de la función. Entonces el método de gradiente descendente consiste en iterar la siguiente fórmula:</p>
+<p><span class="math display">\[x_{k+1} = x_k - \alpha \nabla f(x_k)\]</span></p>
+<p>donde <span class="math inline">\(\alpha\)</span> es un número positivo que se conoce como el tamaño de paso, machime learning se conoce como tasa de aprendizaje. Si <span class="math inline">\(\alpha\)</span> es muy grande, entonces el método de gradiente descendente puede diverger. Si <span class="math inline">\(\alpha\)</span> es muy pequeño, entonces el método de gradiente descendente puede converger muy lentamente. El método de gradiente descendente es un método iterativo, por lo que se puede detener en cualquier momento. Si la función es convexa, entonces el método de gradiente descendente converge a un mínimo global. Si la función no es convexa, entonces el método de gradiente descendente converge a un mínimo local.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the function to optimize</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x, y):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the gradient of the function</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> grad_f(x, y):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([<span class="dv">2</span><span class="op">*</span>x, <span class="dv">2</span><span class="op">*</span>y])</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the gradient descent algorithm</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_descent(start_x, start_y, learning_rate, num_iterations):</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> start_x</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> start_y</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    trajectory <span class="op">=</span> [(x, y)]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_iterations):</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        gradient <span class="op">=</span> grad_f(x, y)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        x <span class="op">-=</span> learning_rate <span class="op">*</span> gradient[<span class="dv">0</span>]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        y <span class="op">-=</span> learning_rate <span class="op">*</span> gradient[<span class="dv">1</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        trajectory.append((x, y))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> trajectory</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the initial point, learning rate, and number of iterations</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>start_x <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>start_y <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>learning_rate <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>num_iterations <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the gradient descent algorithm</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>trajectory <span class="op">=</span> gradient_descent(start_x, start_y, learning_rate, num_iterations)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the function and the trajectory</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">100</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">100</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(x, y)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> f(X, Y)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>ax.plot_surface(X, Y, Z, cmap<span class="op">=</span><span class="st">'viridis'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'y'</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'f(x, y)'</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>trajectory <span class="op">=</span> np.array(trajectory)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>ax.plot(trajectory[:, <span class="dv">0</span>], trajectory[:, <span class="dv">1</span>], f(trajectory[:, <span class="dv">0</span>], trajectory[:, <span class="dv">1</span>]), <span class="st">'r--'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="minimosnonlinear_files/figure-html/cell-3-output-1.png" width="406" height="390"></p>
+</div>
+</div>
+<p>De esta forma tenemos siguiente algoritmo para el método de gradiente descendente:</p>
+</section>
+<section id="algoritmo" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="algoritmo"><span class="header-section-number">12.3</span> Algoritmo</h2>
+<p>Imput : <span class="math inline">\(f(x)\)</span>, <span class="math inline">\(x_0\)</span>, <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(N_{max}\)</span> Output: <span class="math inline">\(x\)</span> o un mensaje de error</p>
+<ol type="1">
+<li><span class="math inline">\(k = 0\)</span></li>
+<li>Mientras <span class="math inline">\(k &lt; N_{max}\)</span> hacer:
+<ol type="1">
+<li>Calcular <span class="math inline">\(\nabla f(x_k)\)</span></li>
+<li><span class="math inline">\(x_{k+1} = x_k - \alpha \nabla f(x_k)\)</span></li>
+<li><span class="math inline">\(k = k + 1\)</span></li>
+</ol></li>
+<li>Retornar <span class="math inline">\(x_k\)</span></li>
+</ol>
+</section>
+<section id="método-de-newton-para-minimización" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="método-de-newton-para-minimización"><span class="header-section-number">12.4</span> Método de Newton para minimización</h2>
+<p>El método de Newton es un método iterativo para encontrar los mínimos de una función. La idea es que si tenemos una función <span class="math inline">\(f(x)\)</span>, entonces el método de Newton consiste en aproximar la función por un polinomio de segundo grado y encontrar el mínimo de este polinomio. Vamos a explicar este método para el caso de una función de una variable, y luego vamos a generalizar el método para el caso de una función de varias variables.</p>
+<p>Sea <span class="math inline">\(f(x)\)</span> una función doblemente diferenciable entonces podemos aproximar esta función por medio un polinomio de Taylor de segundo grado: <span class="math display">\[f(x+t)\approx f(x)+f'(x)t+\frac{1}{2}f''(x)t^2\]</span> Si queremos encontrar el mínimo de esta función, entonces debemos encontrar el valor de <span class="math inline">\(t\)</span> que minimiza el polinomio. Para encontrar este valor, derivamos el polinomio con respecto a <span class="math inline">\(t\)</span> e igualamos a cero: <span class="math display">\[f'(x)+f''(x)t=0\]</span> de esta forma obtenemos que el valor de <span class="math inline">\(t\)</span> que minimiza el polinomio es: <span class="math display">\[t=-\frac{f'(x)}{f''(x)}\]</span> Este valor de <span class="math inline">\(t\)</span> es el valor que minimiza el polinomio, y por lo tanto es una buena aproximación al mínimo de la función. De esta forma el método de Newton consiste en iterar la siguiente fórmula: <span class="math display">\[x_{k+1}=x_k-\frac{f'(x_k)}{f''(x_k)}\]</span> si la función es convexa y la segunda derivada es positiva, entonces el método de Newton converge a un mínimo global.</p>
+<p>Podemos generalizar el método de Newton para el caso de una función de varias variables. Sea <span class="math inline">\(f(x)\in\mathcal{R}^N\to\mathcal{R}\)</span> una función doblemente diferenciable, entonces podemos aproximar esta función por medio de un polinomio de Taylor de segundo grado:</p>
+<p><span class="math display">\[f(x+t)\approx f(x)+t^T\nabla f(x)+\frac{1}{2}t^T\nabla^2 f(x)t\]</span></p>
+<p>recuerde que <span class="math inline">\(\nabla f(x)\)</span> es el gradiente de <span class="math inline">\(f(x)\)</span> y <span class="math inline">\(\nabla^2 f(x)\)</span> es la matriz hessiana de <span class="math inline">\(f(x)\)</span>. Si queremos encontrar el mínimo de esta función, entonces debemos encontrar el valor de <span class="math inline">\(t\)</span> que minimiza el polinomio. Para encontrar este valor, derivamos el polinomio con respecto a <span class="math inline">\(t\)</span> e igualamos a cero: <span class="math display">\[\nabla f(x)+\nabla^2 f(x)t=0\]</span> solucionando el sistema obtenemos que el valor de <span class="math inline">\(t\)</span> <span class="math display">\[t=-\nabla^2 f(x)^{-1}\nabla f(x)\]</span> así el método de Newton consiste en iterar la siguiente fórmula: <span class="math display">\[x_{k+1}=x_k-\nabla^2 f(x_k)^{-1}\nabla f(x_k)\]</span></p>
+</section>
+<section id="gauss-newton-método-para-mínimos-cuadrados-no-lineales" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="gauss-newton-método-para-mínimos-cuadrados-no-lineales"><span class="header-section-number">12.5</span> Gauss-Newton Método para mínimos cuadrados no lineales</h2>
+<p>El método de Gauss-Newton es un método iterativo para resolver problemas de mínimos cuadrados no lineales. La idea es que si tenemos un sistema de <span class="math inline">\(m\)</span> ecuaciones con <span class="math inline">\(n\)</span> incógnitas:</p>
+<p><span class="math display">\[  r_1(x_1, x_2, \ldots, x_n) = 0 \]</span> <span class="math display">\[  r_2(x_1, x_2, \ldots, x_n) = 0 \]</span> <span class="math display">\[  \vdots \]</span> <span class="math display">\[  r_m(x_1, x_2, \ldots, x_n) = 0. \]</span> Podemos definir el vector residuo como: <span class="math display">\[r(x)=[r_1,\dots,r_m]\]</span> de esta forma podemos definir la función de la suma de los errores cuadráticos:</p>
+<p><span class="math display">\[  E(x_1,...,x_n)=\frac{1}{2}(r^1+\cdots r_m^2)=\frac{1}{2}r^Tr.\]</span> Note que <span class="math inline">\(E\in\mathcal{R}^n\to\mathcal{R}\)</span> esta función tiene un mínimo <strong>¿Por qué?</strong>.</p>
+<p>Note que la serie de Taylor de <span class="math inline">\(E(x)\)</span> es: <span class="math display">\[E(x) = E(x_0) + \nabla E(x_0)(x - x_0) + \frac{1}{2}(x-x_0)^T\nabla^2E(x_0)(x-x_0).\]</span> de la misma forma podemos calcular la serie de taylor de <span class="math inline">\(r(x)\)</span>:</p>
+<p><span class="math display">\[r(x) = r(x_0) + Dr(x_0)(x - x_0).\]</span></p>
+<p>Note que <span class="math inline">\(Dr(x_0)\)</span> es la matriz jacobiana de <span class="math inline">\(r(x)\)</span> evaluada en <span class="math inline">\(x_0\)</span>. Además note que <span class="math inline">\(\nabla E(x_0)=Dr(x_0)^Tr(x_0)\)</span> y</p>
+<p><span class="math display">\[\nabla^2E(x)=Dr(x)^TDr(x)+S(x),\]</span></p>
+<p>donde <span class="math inline">\(S(x)=\sum_{i=1}^m r_i(x)D^2r_i(x)\)</span>. De esta forma podemos aproximar la función <span class="math inline">\(E(x)\)</span> por medio de un polinomio de segundo grado:</p>
+<p><span class="math display">\[E(x) = \frac{1}{2}r(x_0)^Tr(x_0) + (Dr(x_0)^Tr(x_0))^T(x - x_0) + \frac{1}{2}(x-x_0)^T(Dr(x_0)^TDr(x_0)+S(x))(x-x_0).\]</span></p>
+<p>Aplicando el método de Newton para minimizar <span class="math inline">\(E(x)\)</span> obtenemos la siguiente fórmula iterativa:</p>
+<p><span class="math display">\[x_{k+1}=x_k-(Dr(x_k)^TDr(x_k)+S(x_k))^{-1}Dr(x_k)^Tr(x_k)\]</span></p>
+<p>El cual converge localmente. Note que aui tenemos el problema de calcular <span class="math inline">\(mn^2\)</span> derivadas, por tanto el costo computacionales realmente es alto.</p>
+<p>Para econtar el método de Gauss-Newton, podemos pensar que omitimos el término <span class="math inline">\(S(x)\)</span>, de esta forma obtenemos</p>
+<p><span class="math display">\[E(x) = \frac{1}{2}r(x_0)^Tr(x_0) + (Dr(x_0)^Tr(x_0))^T(x - x_0) + \frac{1}{2}(x-x_0)^T(Dr(x_0)^TDr(x_0))(x-x_0).\]</span></p>
+<p>y al aplicar el metodo de Newton obtenemos la siguiente fórmula iterativa:</p>
+<p><span class="math display">\[x_{k+1}=x_k-(Dr(x_k)^TDr(x_k))^{-1}Dr(x_k)^Tr(x_k)\]</span></p>
+<p>note que esto lo podemos escribir como:</p>
+<p><span class="math display">\[(Dr(x_k)^TDr(x_k))\delta=Dr(x_k)^Tr(x_k),\]</span> con <span class="math display">\[x_{k+1}=x_k+\delta.\]</span></p>
+<p>Note que si la matriz <span class="math inline">\(Dr(x_k)^TDr(x_k)\)</span> tiene rango completo el método de Gauss-Newton converge localmente y tiene una única solución. Ademas, si la matriz <span class="math inline">\(Dr(x_k)^TDr(x_k)\)</span>, además podríamos usar al factorización QR para resolver el sistema de ecuaciones lineales.</p>
+<p>asi el algoritmo es</p>
+<p><strong>Algoritmo</strong></p>
+<p>Minimizar <span class="math inline">\(E(x)=\frac{1}{2}r(x)^Tr(x)\)</span></p>
+<p>Sea <span class="math inline">\(x_0\)</span> una aproximación inicial,</p>
+<ol type="1">
+<li>A=Dr(x_k)</li>
+<li>Calcular <span class="math inline">\(A^TA\delta=-A^Tr(x_k)\)</span></li>
+<li>Calcular <span class="math inline">\(x_{k+1}=x_k+\delta\)</span></li>
+</ol>
+<div class="callout-important callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Teorema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sean <span class="math inline">\(u,v\)</span> dos funciones vectoriales tal que <span class="math inline">\(u,v\in\mathcal{R}^n\to\mathcal{R}^m\)</span>, entonces <span class="math display">\[\nabla (u^Tv)=v^TDu+u^TDv\]</span> donde <span class="math inline">\(Du\)</span> es la matriz jacobiana de <span class="math inline">\(u\)</span> y <span class="math inline">\(Dv\)</span> es la matriz jacobiana de <span class="math inline">\(v\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="método-de-levenberg-marquardt" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="método-de-levenberg-marquardt"><span class="header-section-number">12.6</span> Método de Levenberg-Marquardt</h2>
+<p>EL método de Levenberg-Marquardt es una modificación del metodo de Gauss-Newton, el consiste en adicionar un parámetro para acelerar la convergencia.</p>
+<p><strong>Algoritmo</strong></p>
+<p>Minimizar <span class="math inline">\(E(x)=\frac{1}{2}r(x)^Tr(x)\)</span></p>
+<p>Sea <span class="math inline">\(x_0\)</span> una aproximación inicial, <span class="math inline">\(\lambda&gt;0\)</span> un parámetro de regularización,</p>
+<ol type="1">
+<li>A=Dr(x_k)</li>
+<li>Calcular <span class="math inline">\(A^TA+\lambda diag(A^TA)\delta=-A^Tr(x_k)\)</span></li>
+<li>Calcular <span class="math inline">\(x_{k+1}=x_k+\delta\)</span></li>
+</ol>
+<p>note que si <span class="math inline">\(\lambda=0\)</span> es el mismo caso de Gauss-Newton.</p>
+<p><strong>Ejercicio</strong> Aplicar el método de Gauus- Newton y Levenberg-Marquardt para resolver el siguiente problema de mínimos cuadrados no lineales: <span class="math inline">\(y=c_1e^{-c_2x(t-c_3)^2}\)</span> para los puntos <span class="math inline">\((t_i,y_i)=\{(1,3),(2,5),(2,7),(3,5),(4,1)\}\)</span></p>
+<p>Rta/ <span class="math inline">\(c_1=6.301, c_2=-0.5088, c_3=2.249\)</span></p>
+<p>para más detalles de esta sección ver <span class="citation" data-cites="sun2006optimization">Sun and Yuan (<a href="references.html#ref-sun2006optimization" role="doc-biblioref">2006</a>)</span> y <span class="citation" data-cites="sauer2018numerical">Sauer (<a href="references.html#ref-sauer2018numerical" role="doc-biblioref">2018</a>)</span>.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-sauer2018numerical" class="csl-entry" role="doc-biblioentry">
+Sauer, T. 2018. <em>Numerical Analysis</em>. Pearson Education. <a href="https://books.google.com.co/books?id=gAVTDwAAQBAJ">https://books.google.com.co/books?id=gAVTDwAAQBAJ</a>.
+</div>
+<div id="ref-sun2006optimization" class="csl-entry" role="doc-biblioentry">
+Sun, Wenyu, and Ya-Xiang Yuan. 2006. <em>Optimization Theory and Methods: Nonlinear Programming</em>. Vol. 1. Springer Science &amp; Business Media.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./regresion.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Regresión multivariada</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
